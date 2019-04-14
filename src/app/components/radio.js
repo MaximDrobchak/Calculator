@@ -20,14 +20,16 @@ function RadioGroupComponent (props){
         onChange={onChange}
         name='position'
         value={value}
+
         row>
         {(options || [])
-          .map(option => (
+          .map((option, index) => (
             <FormControlLabel
               value={option.value}
+
               style={{margin: 0 , padding: 0}}
               key={option.value}
-              control={<Radio color='primary' />}
+              control={<Radio color='primary'  checked={index == 0 && true}/>}
               label={option.value}
             />
           ))}

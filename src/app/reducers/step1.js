@@ -3,9 +3,9 @@ import { Copart } from '../data/auctions_data/copart';
 import { IAAI } from '../data/auctions_data/iaa';
 const initialState = {
   auction: null,
-  size: '',
+  size: 'Седан',
   cytisData: [],
-  cytiUse: '',
+  cytiUse: 'Chicago South-IL',
   mainCraft: [],
 
   // fuel: null,

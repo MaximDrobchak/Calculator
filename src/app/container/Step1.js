@@ -110,10 +110,15 @@ function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, ch
           {(stepState.mainCraft && stepState.mainCraft[2]) === undefined ? null : (stepState.mainCraft && stepState.mainCraft[2]) + ' - Ближайший порт'}
         </Typography>
         <Typography variant="subheading" color="secondary">
-         { calcInsurance > 0 && 'Страховка:' + calcInsurance + '$'}
+          { calcInsurance > 0 && 'Страховка:' + calcInsurance + '$'}
         </Typography>
         <Typography variant="title" color="secondary" style={{fontSize: 14}}>
-            {!isNaN(summ) && summ ? 'СТОИМОСТЬ ДОСТАВКИ В ПОРТ ОДЕССА: ' + ' ' +  summ.toLocaleString() + ' $' : null}
+        СТОИМОСТЬ ДОСТАВКИ В ПОРТ ОДЕССА:
+        <span
+        style={{color: 'red', fontSize: '1.3em', marginLeft: 10}}
+        >{!isNaN(summ) ? summ.toLocaleString() : 0}
+          $
+        </span>
         </Typography>
       <hr />
       <div style={{display: 'flex'}}>

@@ -3,6 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import indigo from '@material-ui/core/colors/indigo';
 import green from '@material-ui/core/colors/green';
+import red from '@material-ui/core/colors/red';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 // A theme with custom primary and secondary color.
@@ -24,6 +25,11 @@ const theme = createMuiTheme({
       main: green['A700'],
       dark: green[700],
     },
+    money: {
+      red: red[200],
+      red: red['A700'],
+      red: red[700],
+    }
   },
   htmlFontSize: 10,
 });

@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { doAddCostCar, doAddCostTamojnya, doAddBrocker } from '../actions';
-
+import red from '@material-ui/core/colors/red';
 import { useFormInput, calculta } from './functions';
 
 const styles = theme => ({
@@ -105,7 +105,7 @@ class FormattedInputs extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {
-      numberformat: props.brocker ? props.brocker : null,
+      numberformat: props.brocker ? props.brocker : 2000,
 
     };
 
@@ -157,8 +157,11 @@ componentDidUpdate(){
             {comision}$  - Комиссия аукциона
           </Typography>
 
-          <Typography   variant="title" color="primary">
-              ИТОГО: {Math.ceil(+numberformat + comision)}$
+          <Typography variant="title" color="primary" style={{display: 'inline-flex' }}>
+              Стоимость авто с учетом комиссии вукциона:
+              <span  style={{ color: 'red', fontSize: '1.3em', marginLeft: 5 }}>
+                 {Math.ceil(+numberformat + comision)}$
+            </span>
           </Typography>
         </React.Fragment>
       )}

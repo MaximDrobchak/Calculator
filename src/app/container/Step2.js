@@ -45,7 +45,7 @@ function Step2 ({
 
   }, [engines.value]);
 
-  const years = useFormInput(2019);
+  const years = useFormInput(2014);
 
   useEffect(() => {
     const year = years.value;
@@ -120,7 +120,7 @@ function Step2 ({
 
 
   return (
-      <Paper background='tomato' header='Расчет розтаможки'>
+      <Paper background='tomato' header='Расчет разтаможки'>
       <Typography variant="title" color="inherit">
         Выберете тип топлива
         </Typography>
@@ -150,7 +150,7 @@ function Step2 ({
         />
 
         <Typography  variant="title" color="inherit">
-          Брокер
+          Експедиция в порту Одесса + брокерские услуги
         </Typography>
         <Input brocker={900} enableBrocker/>
         <Typography variant="title" color="secondary">

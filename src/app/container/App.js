@@ -22,6 +22,7 @@ const gridExamplesPage = () => {
 
   return (
     <div>
+      {/* <NavBar /> */}
       <WithVide />
       <WithMain />
     </div>

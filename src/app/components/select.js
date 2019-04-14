@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+import {MenuItem, InputLabel, Select, Input} from '@material-ui/core/';
 
 import { useFormInput } from './functions';
 
@@ -28,21 +28,29 @@ function Controlledelect (props){
   return (
     <div className={classes.root}>
 
+
     <TextField
       id='standard-select-currency-native'
       select
       onChange={onChange}
       value={value}
+      defaultChecked='Anchorege-AK'
+      defaultValue='Anchorege-AK'
       menuprops={{
         className: classes.menu,
       }}
+      native={true}
       style={{ zIndex: 10000, position: 'relative' }}
       helperText={header}
       margin='normal'>
 
-      {(options || []).map(option => (
-        <MenuItem key={option[0]} value={option[1]} position='relative' style={{
-    zIndex: 100011,}}>
+      {(options || []).map((option) => (
+        <MenuItem
+          key={option[0]}
+          value={option[1]}
+          position='relative'
+          style={{zIndex: 100011}}
+        >
           {option[1]}
         </MenuItem>
       ))}
@@ -56,3 +64,5 @@ Controlledelect.propTypes = {
 };
 
 export default withStyles(styles)(Controlledelect);
+
+
