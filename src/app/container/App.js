@@ -47,14 +47,14 @@ function Main(props){
   return (
     <div className={classes.main} >
       {/* <NavBar title='Расчет доставки авто'/> */}
-      <MDBContainer className={classes.root}>
+      <MDBContainer className={classes.root} style={{display: 'flex', flexDirection: width > 992 ? 'row': 'column'}}>
 
 
-      <div className={classes.step} >
+      <div className={classes.step}  >
         <Step1 />
       </div>
 
-      <div  className={classes.step}  >
+      <div  className={classes.step} style={{marginTop: width < 992 ? '93vh': 0}} >
         <Step2 />
       </div>
       </MDBContainer>

@@ -20,10 +20,12 @@ export const doAddCostCar = payload => ({
   payload,
 });
 
-export const doAddCostTransit = payload => ({
+export const doAddCostTransit = payload => {
+  console.log('payload', payload)
+  return {
   type: actionTypes.COST_TRANSIT,
   payload,
-});
+}};
 
 export const doAddCostTamojnya = payload => ({
   type: actionTypes.COST_TAMOJNYA,

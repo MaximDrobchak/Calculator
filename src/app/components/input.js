@@ -11,7 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { doAddCostCar, doAddCostTamojnya, doAddBrocker } from '../actions';
+import { doAddCostCar, doAddCostTamojnya, doAddBrocker, doAddCostTransit } from '../actions';
 import red from '@material-ui/core/colors/red';
 import { useFormInput, calculta } from './functions';
 
@@ -119,17 +119,19 @@ class FormattedInputs extends React.PureComponent {
   };
 componentDidUpdate(){
   const { numberformat } = this.state;
-  const { enableLabel, auction, enableBrocker, onAddCostCar, onAddCostTamojnya, onAddBrocker, costTamojnya, enableTamojnya } = this.props;
+  const { enableLabel, auction, enableBrocker, onAddCostCar, onAddCostTamojnya, onAddBrocker, onAddAllCost, enableTamojnya } = this.props;
   if(enableLabel){
 
     onAddCostCar({ numberformat })
     this.setState({ comision: calculta(auction, +numberformat) });
+
+    onAddAllCost(+calculta(auction, +numberformat) + +numberformat)
   }
   if(enableBrocker){
     onAddBrocker({ numberformat })
   }
   if(enableTamojnya && enableLabel){
-    onAddCostTamojnya({ numberformat })
+    onAddCostTamojnya({ numberformat: (+calculta(auction, +numberformat) + +numberformat) })
   }
 }
 
@@ -187,5 +189,6 @@ const mapDispatchToProps = dispatch => ({
   onAddCostCar: payload => dispatch(doAddCostCar(payload)),
   onAddCostTamojnya: payload => dispatch(doAddCostTamojnya(payload)),
   onAddBrocker: payload => dispatch(doAddBrocker(payload)),
+  onAddAllCost: payload => dispatch(doAddCostTransit(payload)),
 });
 export default connect(mapStateToProps,mapDispatchToProps)(WithFormatInputs);

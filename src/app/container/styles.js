@@ -49,6 +49,7 @@ export const styles = theme => ({
   },
   step: {
     position: 'relative',
+    zIndex: 100,
     margin: 0 , padding: 0,
     minWidth: '35%',
 

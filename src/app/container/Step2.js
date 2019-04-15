@@ -18,7 +18,7 @@ function Step2 ({
   onAddTypeEngine,
   onAddTypeFuel,
   onAddYear,
-  step2State,
+  allCost,
   stepState,
   cost,
 }){
@@ -114,7 +114,7 @@ function Step2 ({
       else {percent = 0.05;}
       const feeP = +(costTamojnya * percent);
       const summ = Math.ceil(feeP + fee + nds + brockerValue + stepCost);
-
+        console.log('feeP', feeP)
       setMoney({ summ, nds, fee , feeP, percent })
     }, [costTamojnya, stepCost]);
 
@@ -154,9 +154,9 @@ function Step2 ({
         </Typography>
         <Input brocker={900} enableBrocker/>
         <Typography variant="title" color="secondary">
-          Цена автомобиля {cost}$
+          Стоимость авто для расчетов растаможки: {allCost}$ +400$
         </Typography>
-        {costTamojnya > 0  && (feeString(money))}
+        {costTamojnya > 0  && (feeString(money, stepCost))}
           <hr />
         {(costTamojnya > 0 && cost > 0) && (
           <Typography  variant="h6" color="primary">
@@ -171,7 +171,7 @@ function Step2 ({
 const mapStateToProps = state => ({
   stepState: state.step2State,
   cost: state.summaState.costCar,
-  cost: state.summaState.costCar,
+  allCost: state.summaState.allCost,
 });
 const mapDispatchToProps = dispatch => ({
   onAddTypeEngine: payload => dispatch(doAddTypeEngine(payload)),

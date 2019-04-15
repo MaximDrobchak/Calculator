@@ -73,7 +73,7 @@ function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, ch
             </Typography>
           </Typography>  </Paper>
         </Paper> */}
-
+console.log('summaState.allCost', summaState.allCost)
   return (
     <Paper background='tomato' header='Расчет доставки авто'>
       {children}
@@ -111,7 +111,7 @@ function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, ch
         <Typography variant="subheading" color="secondary">
           { calcInsurance > 0 && 'Страховка:' + calcInsurance + '$'}
         </Typography>
-        <Typography variant="title" color="primary" style={{fontSize: 14}}>
+        <Typography variant="title" color="primary" style={{fontSize: 12}}>
         СТОИМОСТЬ ДОСТАВКИ В ПОРТ ОДЕССА:
         <span
         style={{color: 'red', fontSize: '1.3em', marginLeft: 10}}
@@ -123,10 +123,10 @@ function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, ch
       <div style={{display: 'flex'}}>
 
       <Typography variant="title" color="primary" style={{margin: 'auto'}}>
-        {(summaState.allCost  && summ) &&
-        !isNaN((+summaState.allCost + +summ).toFixed(0))
+        {(summaState.costCar  && summ) &&
+        !isNaN((+summaState.costCar + +summ).toFixed(0))
         ? 'ОБЩАЯ СТОИМОСТЬ ДОСТАВКИ: '
-        + (+summaState.allCost + +summ + +calcInsurance).toFixed(0)
+        + (+summaState.allCost + +calcInsurance + +summ).toFixed(0)
         +'$' : null}
       </Typography>
       </div>

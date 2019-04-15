@@ -2,7 +2,7 @@
 import React, { useState, Fragment } from 'react';
 import { Typography } from '@material-ui/core';
 
- function feeString(money) {
+ function feeString(money, stepCost) {
 const {feeP, nds, fee, percent } = money;
 
 
@@ -15,7 +15,7 @@ const {feeP, nds, fee, percent } = money;
         {Math.ceil(fee)} $ +10% Пошлина
       </Typography>
       <Typography  variant="subheading" color="secondary">
-        {Math.ceil(feeP)} $ + {percent}% От Пенсионный
+        {Math.ceil(stepCost)} $ + Акциз
       </Typography>
     </Fragment>
   )
