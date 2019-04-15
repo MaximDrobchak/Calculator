@@ -14,10 +14,8 @@ import { styles } from './styles'
 
 const gridExamplesPage = () => {
   useEffect(() => {
-    setTimeout(() => {
-      document.getElementById('forsage').play()
-      console.log('play')
-    }, 1000);
+    document.getElementById('forsage').play()
+    console.log('play')
   }, [])
 
   return (

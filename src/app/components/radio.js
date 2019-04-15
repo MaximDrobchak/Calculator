@@ -29,7 +29,7 @@ function RadioGroupComponent (props){
 
               style={{margin: 0 , padding: 0}}
               key={option.value}
-              control={<Radio color='primary'  checked={index == 0 && true}/>}
+              control={<Radio color='primary' />}
               label={option.value}
             />
           ))}

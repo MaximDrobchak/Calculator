@@ -15,13 +15,12 @@ import { useFormInput, calculta } from '../components/functions';
 
 
 function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, children }){
-  const auction = useFormInput('auction');
+  const auction = useFormInput('Copart');
 
 
   useEffect(
     () => {
       onAddAuction({ auction: auction.value });
-
     },
     [ auction.value ],
   );
@@ -55,10 +54,10 @@ function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, ch
     summ =  +result + +costTransit
 
   }
-  const [calcInsurance, setCalcInsurance] = useState(null);
+  const [calcInsurance, setCalcInsurance] = useState(0);
 
   useEffect(() => {
-    const calcInsurance = Math.ceil(summaState.costCar * 0.015)
+    const calcInsurance = Math.ceil((summaState.costCar  + calculta(auction.value, summaState.costCar)) * 0.015)
     setCalcInsurance(calcInsurance)
   }, [summaState.costCar])
 
@@ -112,7 +111,7 @@ function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, ch
         <Typography variant="subheading" color="secondary">
           { calcInsurance > 0 && 'Страховка:' + calcInsurance + '$'}
         </Typography>
-        <Typography variant="title" color="secondary" style={{fontSize: 14}}>
+        <Typography variant="title" color="primary" style={{fontSize: 14}}>
         СТОИМОСТЬ ДОСТАВКИ В ПОРТ ОДЕССА:
         <span
         style={{color: 'red', fontSize: '1.3em', marginLeft: 10}}
@@ -124,10 +123,10 @@ function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, ch
       <div style={{display: 'flex'}}>
 
       <Typography variant="title" color="primary" style={{margin: 'auto'}}>
-        {(summaState.costCar  && summ) &&
-        !isNaN((+summaState.costCar + +summ).toFixed(0))
+        {(summaState.allCost  && summ) &&
+        !isNaN((+summaState.allCost + +summ).toFixed(0))
         ? 'ОБЩАЯ СТОИМОСТЬ ДОСТАВКИ: '
-        + (+summaState.costCar + +summ).toFixed(0)
+        + (+summaState.allCost + +summ + +calcInsurance).toFixed(0)
         +'$' : null}
       </Typography>
       </div>
