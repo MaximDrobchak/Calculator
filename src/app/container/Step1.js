@@ -8,13 +8,13 @@ import Input from '../components/input';
 import auction_data, { typeCar } from '../data/auction';
 import { portListOdessa} from '../data/ports';
 import { connect } from 'react-redux';
-import { doAddAuction, doAddSize, doAddCyti,doAddCostTransit } from '../actions';
+import { doAddAuction, doAddSize, doAddCyti,doAddCostTransit, doAddStepCost1 } from '../actions';
 import { useFormInput, calculta } from '../components/functions';
 
 
 
 
-function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, children }){
+function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, children, onAddStepCost1 }){
   const auction = useFormInput('Copart');
 
 
@@ -59,21 +59,12 @@ function Step1 ({ stepState, onAddAuction, onAddSize, onAddCyti,  summaState, ch
   useEffect(() => {
     const calcInsurance = Math.ceil((summaState.costCar  + calculta(auction.value, summaState.costCar)) * 0.015)
     setCalcInsurance(calcInsurance)
-  }, [summaState.costCar])
+  }, [summaState.costCar]);
 
-  {/* <Paper>
-        <Paper>
-    // var index = typeCar.filter(item => item[1] === size.value && item[2]);
-          <Typography variant='subtitle1'>
-            <Typography variant='h3'>
-              <Typography variant='display1'>Стоимость : </Typography>{' '}
-              {stepState.mainCraft &&
-                stepState.mainCraft[index[0] && index[0][2]]}{' '}
-              $
-            </Typography>
-          </Typography>  </Paper>
-        </Paper> */}
-console.log('summaState.allCost', summaState.allCost)
+  useEffect(() => {
+    onAddStepCost1({costStep1: (+summaState.allCost + +calcInsurance + +summ).toFixed(0)});
+  }, [summaState.allCost, calcInsurance, summ])
+
   return (
     <Paper background='tomato' header='Расчет доставки авто'>
       {children}
@@ -144,5 +135,6 @@ const mapDispatchToProps = dispatch => ({
   onAddSize: payload => dispatch(doAddSize(payload)),
   onAddCyti: payload => dispatch(doAddCyti(payload)),
   onAddCostTransit: payload => dispatch(doAddCostTransit(payload)),
+  onAddStepCost1: payload => dispatch(doAddStepCost1(payload)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Step1);

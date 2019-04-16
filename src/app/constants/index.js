@@ -13,3 +13,5 @@ export const YEAR = 'YEAR';
 export const COST = 'COST';
 
 export const BROCKER = 'BROCKER';
+export const COST_STEP_1 = 'COST_STEP_1';
+export const COST_STEP_2 = 'COST_STEP_2';

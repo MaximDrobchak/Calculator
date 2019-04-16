@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import video from '../data/videoplayback.mp4';
 import Step1 from './Step1';
 import Step2 from './Step2';
+import Step3 from './Step3';
 import { styles } from './styles'
 
 
@@ -52,6 +53,10 @@ function Main(props){
 
       <div className={classes.step}  >
         <Step1 />
+      </div>
+
+      <div className={classes.step}  >
+        <Step3 />
       </div>
 
       <div  className={classes.step} style={{marginTop: width < 992 ? '93vh': 0}} >

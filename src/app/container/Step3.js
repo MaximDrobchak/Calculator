@@ -1,34 +1,43 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Input from '../components/input';
-import Paper from '../components/paper';
+import React, { useEffect, useState } from 'react';
+import { MyHEader } from '../components/paper';
 
-import { useFormInput } from '../components/functions';
+import { Paper, TextField } from '@material-ui/core/';
+import InputNumber from '../components/input';
+import { useFormInput} from '../components/functions';
+import { connect } from 'react-redux';
+import { doAddTypeEngine ,doAddTypeFuel, doAddYear, doAddCost } from '../actions';
 
-function Step3 (){
-  const cost = useFormInput('');
-  const brocker = useFormInput('');
-  const comision = useFormInput('');
-  const sertificate = useFormInput('');
-  const expenses = useFormInput('');
 
-  window.localStorage.setItem('cost', cost.value);
-  window.localStorage.setItem('brocker', brocker.value);
-  window.localStorage.setItem('comision', comision.value);
-  window.localStorage.setItem('sertificate', sertificate.value);
-  window.localStorage.setItem('expenses', expenses.value);
+function Step2 ({
+  costStep1,
+  costStep2
+}){
+ const costDiller = useFormInput(500)
+console.log('costDiller', {...costDiller})
   return (
-    <div style={{ maxWidth: 350 }}>
-      <Typography variant='display1'>Затраты</Typography>
-      <Paper>
-        <Input placeholder='Введите цену' {...cost} />
-        <Input placeholder='Экспедиционные и брокерские услуги' {...brocker} />
-        <Input placeholder='Комиссия дилера' {...comision} />
-        <Input placeholder='Сертификация' {...sertificate} />
-        <Input placeholder='Дополнительные расходы' {...expenses} />
+      <Paper style={{ maxWidth: 250, margin: 'auto' }}>
+      <MyHEader background='tomato' header={`${!isNaN(costStep1) ? costStep1 : ''} $`}/>
+      <MyHEader background='tomato' header={`${costStep2} $`}/>
+      <MyHEader background='tomato' header='Расчет разтаможки'/>
+      <MyHEader background='tomato' header='Расчет разтаможки'/>
+      <InputNumber {...costDiller} />
+
+
       </Paper>
-    </div>
+
   );
 }
+const mapStateToProps = state => ({
+  costStep1: state.summaState.costStep1,
+  costStep2: state.summaState.costStep2,
+});
 
-export default Step3;
+const mapDispatchToProps = dispatch => ({
+  onAddTypeEngine: payload => dispatch(doAddTypeEngine(payload)),
+  onAddTypeFuel: payload => dispatch(doAddTypeFuel(payload)),
+  onAddYear: payload => dispatch(doAddYear(payload)),
+  onAddCost: payload => dispatch(doAddCost(payload)),
+
+});
+export default connect(mapStateToProps,mapDispatchToProps)(Step2);
+

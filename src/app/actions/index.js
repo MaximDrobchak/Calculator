@@ -52,6 +52,15 @@ export const doAddBrocker = payload => ({
   payload,
 });
 
+export const doAddStepCost1 = payload => ({
+  type: actionTypes.COST_STEP_1,
+  payload,
+});
+export const doAddStepCost2 = payload => ({
+  type: actionTypes.COST_STEP_2,
+  payload,
+});
+
 export default {
   doAddAuction,
   doAddSize,

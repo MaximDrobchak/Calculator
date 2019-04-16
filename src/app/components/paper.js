@@ -14,14 +14,17 @@ export const styles = theme => ({
     zIndex: 10000,
     background: 'rgb(255,255,255)',
     opacity: 0.9,
-    width: '100%'
+    width: '100%',
+    maxWidth: 400
   },
+
   paperTitle: {
     height: 30,
     textAlign: 'center',
     color: 'white',
     display: 'flex'
   },
+
   title: {
     color: '#ffffff',
     margin: 'auto',
@@ -50,4 +53,21 @@ PaperSheet.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+ const MyPaperHeader = props => {
+const { background, header, width, classes } = props;
+  return (
+    <Paper className={classes.paperTitle} style={{ background }}>
+      <Typography variant='title' className={classes.title} >{header}</Typography>
+    </Paper>
+  )
+}
+
+MyPaperHeader.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+const MyHEader = withStyles(styles)(MyPaperHeader);
+
+export {
+  MyHEader
+}
 export default withStyles(styles)(PaperSheet);

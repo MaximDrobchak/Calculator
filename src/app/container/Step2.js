@@ -11,7 +11,7 @@ import engines_data from '../data/engine';
 
 import { useFormInput, feeString } from '../components/functions';
 import { connect } from 'react-redux';
-import { doAddTypeEngine ,doAddTypeFuel, doAddYear, doAddCost } from '../actions';
+import { doAddTypeEngine ,doAddTypeFuel, doAddYear, doAddCost, doAddStepCost2 } from '../actions';
 
 
 function Step2 ({
@@ -21,6 +21,7 @@ function Step2 ({
   allCost,
   stepState,
   cost,
+  onAddStepCost2
 }){
   const {
     angineType,
@@ -101,7 +102,13 @@ function Step2 ({
       setBrockerValue(stepState.brockerValue)
     }, [stepState.brockerValue]);
 
-    const [money, setMoney] = useState(null);
+    const [money, setMoney] = useState({
+      summ: undefined,
+      nds: undefined,
+      fee: undefined ,
+      feeP: undefined,
+      percent: undefined
+    });
 
     useEffect(() => {
       const nds = +(costTamojnya * 0.2);
@@ -114,10 +121,11 @@ function Step2 ({
       else {percent = 0.05;}
       const feeP = +(costTamojnya * percent);
       const summ = Math.ceil(feeP + fee + nds + brockerValue + stepCost);
-        console.log('feeP', feeP)
-      setMoney({ summ, nds, fee , feeP, percent })
-    }, [costTamojnya, stepCost]);
 
+      setMoney({ summ, nds, fee , feeP, percent });
+
+    }, [costTamojnya, stepCost]);
+    onAddStepCost2({ costStep2: money.summ });
 
   return (
       <Paper background='tomato' header='Расчет разтаможки'>
@@ -178,6 +186,7 @@ const mapDispatchToProps = dispatch => ({
   onAddTypeFuel: payload => dispatch(doAddTypeFuel(payload)),
   onAddYear: payload => dispatch(doAddYear(payload)),
   onAddCost: payload => dispatch(doAddCost(payload)),
+  onAddStepCost2: payload => dispatch(doAddStepCost2(payload)),
 
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Step2);

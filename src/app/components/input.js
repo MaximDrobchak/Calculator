@@ -104,8 +104,9 @@ NumberFormatCustom.propTypes = {
 class FormattedInputs extends React.PureComponent {
   constructor(props){
     super(props);
+    const { value } = props;
     this.state = {
-      numberformat: props.brocker ? props.brocker : 2000,
+      numberformat: !value ? props.brocker ? props.brocker : 2000 : value,
 
     };
 
@@ -136,7 +137,7 @@ componentDidUpdate(){
 }
 
   render() {
-    const { classes, brocker } = this.props;
+    const { classes, brocker, customFormat } = this.props;
     const { numberformat, comision } = this.state;
 
     return (
@@ -145,8 +146,8 @@ componentDidUpdate(){
         <TextField
           className={classes.formControl}
           label={brocker ? "Брокер" : "Цена покупки"}
-          value={numberformat}
-          onChange={this.handleChange('numberformat')}
+          value={this.props.value ? this.props.value : numberformat}
+          onChange={this.props.onChange  ? this.props.onChange : this.handleChange('numberformat')}
           id="formatted-numberformat-input"
           InputProps={{
             inputComponent: NumberFormatCustom,
@@ -162,7 +163,7 @@ componentDidUpdate(){
           <Typography variant="title" color="primary" style={{display: 'inline-flex' }}>
               Стоимость авто с учетом комиссии вукциона:
               <span  style={{ color: 'red', fontSize: '1.3em', marginLeft: 5 }}>
-                 {Math.ceil(+numberformat + comision)}$
+                  {Math.ceil(+numberformat + comision)}$
             </span>
           </Typography>
         </React.Fragment>
