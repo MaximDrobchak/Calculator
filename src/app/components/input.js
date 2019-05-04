@@ -11,7 +11,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { doAddCostCar, doAddCostTamojnya, doAddBrocker, doAddCostTransit } from '../actions';
+import {
+  doAddCostCar,
+  doAddCostTamojnya,
+  doAddBrocker,
+  doAddCostTransit,
+} from '../actions';
 import red from '@material-ui/core/colors/red';
 import { useFormInput, calculta } from './functions';
 
@@ -53,18 +58,35 @@ MuiInput.propTypes = {
 
 export const UseInput = withStyles(styles)(MuiInput);
 
-
-
-function TextMaskCustom(props) {
+function TextMaskCustom (props){
   const { inputRef, ...other } = props;
 
   return (
     <MaskedInput
       {...other}
       ref={ref => {
-        inputRef(ref ? ref.inputElement : null);
+        inputRef(
+
+            ref ? ref.inputElement :
+            null,
+        );
       }}
-      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      mask={[
+        '(',
+        /[1-9]/,
+        /\d/,
+        /\d/,
+        ')',
+        ' ',
+        /\d/,
+        /\d/,
+        /\d/,
+        '-',
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+      ]}
       placeholderChar={'\u2000'}
       showMask
     />
@@ -75,7 +97,7 @@ TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired,
 };
 
-function NumberFormatCustom(props) {
+function NumberFormatCustom (props){
   const { inputRef, onChange, ...other } = props;
 
   return (
@@ -90,7 +112,7 @@ function NumberFormatCustom(props) {
         });
       }}
       thousandSeparator
-      prefix="$"
+      prefix='$'
     />
   );
 }
@@ -100,74 +122,90 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-
 class FormattedInputs extends React.PureComponent {
-  constructor(props){
+  constructor (props) {
     super(props);
     const { value } = props;
     this.state = {
-      numberformat: !value ? props.brocker ? props.brocker : 2000 : value,
-
+      numberformat:
+        !value ? props.brocker ? props.brocker :
+        2000 :
+        value,
     };
-
   }
 
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
-      comision: 0
+      comision: 0,
     });
   };
-componentDidUpdate(){
-  const { numberformat } = this.state;
-  const { enableLabel, auction, enableBrocker, onAddCostCar, onAddCostTamojnya, onAddBrocker, onAddAllCost, enableTamojnya } = this.props;
-  if(enableLabel){
+  componentDidUpdate () {
+    const { numberformat } = this.state;
+    const {
+      enableLabel,
+      auction,
+      enableBrocker,
+      onAddCostCar,
+      onAddCostTamojnya,
+      onAddBrocker,
+      onAddAllCost,
+      enableTamojnya,
+    } = this.props;
+    if (enableLabel) {
+      onAddCostCar({ numberformat });
+      this.setState({ comision: calculta(auction, +numberformat) });
 
-    onAddCostCar({ numberformat })
-    this.setState({ comision: calculta(auction, +numberformat) });
+      onAddAllCost(+calculta(auction, +numberformat) + +numberformat);
+    }
+    if (enableBrocker) {
+      onAddBrocker({ numberformat });
+    }
+    if (enableTamojnya && enableLabel) {
+      onAddCostTamojnya({
+        numberformat: +calculta(auction, +numberformat) + +numberformat,
+      });
+    }
+  }
 
-    onAddAllCost(+calculta(auction, +numberformat) + +numberformat)
-  }
-  if(enableBrocker){
-    onAddBrocker({ numberformat })
-  }
-  if(enableTamojnya && enableLabel){
-    onAddCostTamojnya({ numberformat: (+calculta(auction, +numberformat) + +numberformat) })
-  }
-}
-
-  render() {
+  render () {
     const { classes, brocker, customFormat } = this.props;
     const { numberformat, comision } = this.state;
 
     return (
       <React.Fragment>
-      <div className={classes.container}>
-        <TextField
-          className={classes.formControl}
-          label={brocker ? "Брокер" : "Цена покупки"}
-          value={this.props.value ? this.props.value : numberformat}
-          onChange={this.props.onChange  ? this.props.onChange : this.handleChange('numberformat')}
-          id="formatted-numberformat-input"
-          InputProps={{
-            inputComponent: NumberFormatCustom,
-          }}
-        /><br />
-      </div>
-      {(this.state.numberformat > 1 && this.props.enableLabel) && (
-        <React.Fragment>
-          <Typography  variant="subheading" color="secondary" style={{marginBottom: 10}}>
-            {comision}$  - Комиссия аукциона
-          </Typography>
+        <div className={classes.container}>
+          <TextField
+            label={this.props.value && 'Диллерские'}
+            className={classes.formControl}
+            value={
 
-          <Typography variant="title" color="primary" style={{display: 'inline-flex' }}>
-              Стоимость авто с учетом комиссии вукциона:
-              <span  style={{ color: 'red', fontSize: '1.3em', marginLeft: 5 }}>
-                  {Math.ceil(+numberformat + comision)}$
-            </span>
-          </Typography>
-        </React.Fragment>
-      )}
+                this.props.value ? this.props.value :
+                numberformat
+            }
+            onChange={
+
+                this.props.onChange ? this.props.onChange :
+                this.handleChange('numberformat')
+            }
+            id='formatted-numberformat-input'
+            InputProps={{
+              inputComponent: NumberFormatCustom,
+            }}
+          />
+          <br />
+        </div>
+        {this.state.numberformat > 1 &&
+        this.props.enableLabel && (
+          <React.Fragment>
+            <Typography
+              variant='subheading'
+              color='secondary'
+              style={{ marginBottom: 10 }}>
+              {comision}$ - Комиссия аукциона
+            </Typography>
+          </React.Fragment>
+        )}
       </React.Fragment>
     );
   }
@@ -192,4 +230,4 @@ const mapDispatchToProps = dispatch => ({
   onAddBrocker: payload => dispatch(doAddBrocker(payload)),
   onAddAllCost: payload => dispatch(doAddCostTransit(payload)),
 });
-export default connect(mapStateToProps,mapDispatchToProps)(WithFormatInputs);
+export default connect(mapStateToProps, mapDispatchToProps)(WithFormatInputs);

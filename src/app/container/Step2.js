@@ -11,8 +11,13 @@ import engines_data from '../data/engine';
 
 import { useFormInput, feeString } from '../components/functions';
 import { connect } from 'react-redux';
-import { doAddTypeEngine ,doAddTypeFuel, doAddYear, doAddCost, doAddStepCost2 } from '../actions';
-
+import {
+  doAddTypeEngine,
+  doAddTypeFuel,
+  doAddYear,
+  doAddCost,
+  doAddStepCost2,
+} from '../actions';
 
 function Step2 ({
   onAddTypeEngine,
@@ -21,159 +26,160 @@ function Step2 ({
   allCost,
   stepState,
   cost,
-  onAddStepCost2
+  onAddStepCost2,
 }){
-  const {
-    angineType,
-    typeFuel,
-    yearCost,
-    costTamojnya
-  } = stepState;
+  const { angineType, typeFuel, yearCost, costTamojnya } = stepState;
 
-    const fuelType = useFormInput('Бензин');
+  const fuelType = useFormInput('Бензин');
 
-    useEffect(() => {
+  useEffect(
+    () => {
       const typeFuel = fuelType.value;
       onAddTypeFuel({ typeFuel });
-
-    }, [fuelType.value]);
+    },
+    [ fuelType.value ],
+  );
 
   const engines = useFormInput('2.0');
 
-  useEffect(() => {
-    const angineType = engines.value;
-    onAddTypeEngine({ angineType });
-
-  }, [engines.value]);
+  useEffect(
+    () => {
+      const angineType = engines.value;
+      onAddTypeEngine({ angineType });
+    },
+    [ engines.value ],
+  );
 
   const years = useFormInput(2014);
 
-  useEffect(() => {
-    const year = years.value;
-    onAddYear({ year });
-
-  }, [years.value]);
+  useEffect(
+    () => {
+      const year = years.value;
+      onAddYear({ year });
+    },
+    [ years.value ],
+  );
   // let cost;
-  const [stepCost, setCost] = useState(null);
+  const [ stepCost, setCost ] = useState(null);
 
-  useEffect(() => {
-    if(typeFuel !== '' && angineType > 1){
-
-
-      if(typeFuel == 'Дизель'){
-        if(angineType <= 3.0){
-          if(yearCost && yearCost > 0){
-            setCost((85 * angineType) * yearCost);
-          } else
-          setCost(85 * angineType);
+  useEffect(
+    () => {
+      if (typeFuel !== '' && angineType > 1) {
+        if (typeFuel == 'Дизель') {
+          if (angineType <= 3.0) {
+            if (yearCost && yearCost > 0) {
+              setCost(85 * angineType * yearCost);
+            }
+            else setCost(85 * angineType);
+          }
+          if (angineType > 3.0) {
+            if (yearCost && yearCost > 0) {
+              setCost(170 * angineType * yearCost);
+            }
+            else setCost(170 * angineType);
+          }
         }
-        if(angineType > 3.0){
-          if(yearCost && yearCost > 0){
-            setCost((170 * angineType) * yearCost);
-          } else
-        setCost(170 * angineType);
+
+        if (typeFuel == 'Бензин') {
+          if (angineType <= 3.0) {
+            if (yearCost && yearCost > 0) {
+              setCost(56 * angineType * yearCost);
+            }
+            else setCost(56 * angineType);
+          }
+          if (angineType > 3.0) {
+            if (yearCost && yearCost > 0) {
+              setCost(112 * angineType * yearCost);
+            }
+            else setCost(112 * angineType);
+          }
         }
       }
+      console.log(stepCost);
+    },
+    [ typeFuel, angineType, yearCost, costTamojnya, cost, stepCost ],
+  );
 
-    if(typeFuel == 'Бензин'){
-        if(angineType <= 3.0){
-          if(yearCost && yearCost > 0){
-            setCost((56 * angineType) * yearCost);
-          } else
-          setCost(56 * angineType);
-        }
-        if(angineType > 3.0){
-          if(yearCost && yearCost > 0){
-            setCost((112 * angineType) * yearCost);
-          } else
-          setCost(112 * angineType);
-        }
+  const [ brockerValue, setBrockerValue ] = useState(stepState.brockerValue);
 
-      }
+  useEffect(
+    () => {
+      setBrockerValue(stepState.brockerValue);
+    },
+    [ stepState.brockerValue ],
+  );
 
-    }
-    console.log(stepCost)
-  }, [typeFuel, angineType, yearCost,  costTamojnya, cost , stepCost]);
+  const [ money, setMoney ] = useState({
+    summ: undefined,
+    nds: undefined,
+    fee: undefined,
+    feeP: undefined,
+    percent: undefined,
+  });
 
-
-  const [brockerValue, setBrockerValue] = useState(stepState.brockerValue);
-
-    useEffect(() => {
-      setBrockerValue(stepState.brockerValue)
-    }, [stepState.brockerValue]);
-
-    const [money, setMoney] = useState({
-      summ: undefined,
-      nds: undefined,
-      fee: undefined ,
-      feeP: undefined,
-      percent: undefined
-    });
-
-    useEffect(() => {
+  useEffect(
+    () => {
       const nds = +(costTamojnya * 0.2);
       const fee = +(costTamojnya * 0.1);
       let percent;
-      if(costTamojnya <= 10000){
-        percent = 0.03;}
-      else if(costTamojnya <= 20000){
-        percent = 0.04;}
-      else {percent = 0.05;}
+      if (costTamojnya <= 10000) {
+        percent = 0.03;
+      }
+      else if (costTamojnya <= 20000) {
+        percent = 0.04;
+      }
+      else {
+        percent = 0.05;
+      }
       const feeP = +(costTamojnya * percent);
       const summ = Math.ceil(feeP + fee + nds + brockerValue + stepCost);
 
-      setMoney({ summ, nds, fee , feeP, percent });
-
-    }, [costTamojnya, stepCost]);
-    onAddStepCost2({ costStep2: money.summ });
+      setMoney({ summ, nds, fee, feeP, percent });
+    },
+    [ costTamojnya, stepCost ],
+  );
+  onAddStepCost2({ costStep2: money.summ });
 
   return (
-      <Paper background='tomato' header='Расчет разтаможки'>
-      <Typography variant="title" color="inherit">
-        Выберете тип топлива
+    <Paper background='tomato' header='Расчет разтаможки'>
+      <Select header='Выберете тип топлива' {...fuelType} options={fuel_data} />
+
+      <Select
+        header='Выберете год автомобиля'
+        {...engines}
+        options={engines_data}
+      />
+
+      <Select
+        header='Выберете обём двигателя'
+        {...years}
+        options={years_data}
+      />
+
+      <Typography
+        variant='title'
+        color='inherit'
+        style={{ fontSize: '0.52em' }}>
+        Експедиция в порту Одесса + брокерские услуги
+      </Typography>
+      <Input brocker={900} enableBrocker />
+
+      <hr />
+      {costTamojnya > 0 &&
+      cost > 0 && (
+        <Typography variant='title' color='primary' style={{ margin: 'auto' }}>
+          <span style={{ color: 'blue', fontSize: 20 }}>ПЛАТЕЖ В БЮДЖЕТ:</span>
+          <span
+            style={{
+              color: 'red',
+              fontSize: 25,
+              marginLeft: 20,
+            }}>
+            {money.summ}$
+          </span>
         </Typography>
-        <Select
-          header='Выберете тип топлива'
-          {...fuelType}
-          options={fuel_data}
-        />
-        <Typography variant="title" color="inherit">
-        Выберете обём двигателя
-        </Typography>
-
-        <Select
-          header='Выберете обём двигателя'
-          {...engines}
-          options={engines_data}
-        />
-
-        <Typography variant="title" color="inherit">
-          Выберете год автомобиля
-        </Typography>
-
-        <Select
-          header='Выберете обём двигателя'
-          {...years}
-          options={years_data}
-        />
-
-        <Typography  variant="title" color="inherit">
-          Експедиция в порту Одесса + брокерские услуги
-        </Typography>
-        <Input brocker={900} enableBrocker/>
-        <Typography variant="title" color="secondary">
-          Стоимость авто для расчетов растаможки: {allCost}$ +400$
-        </Typography>
-        {costTamojnya > 0  && (feeString(money, stepCost))}
-          <hr />
-        {(costTamojnya > 0 && cost > 0) && (
-          <Typography  variant="h6" color="primary">
-              ОБЩИЙ ТАМОЖЕННЫЙ СБОР: {money.summ}$
-          </Typography>
-        )}
-
-      </Paper>
-
+      )}
+    </Paper>
   );
 }
 const mapStateToProps = state => ({
@@ -187,7 +193,5 @@ const mapDispatchToProps = dispatch => ({
   onAddYear: payload => dispatch(doAddYear(payload)),
   onAddCost: payload => dispatch(doAddCost(payload)),
   onAddStepCost2: payload => dispatch(doAddStepCost2(payload)),
-
 });
-export default connect(mapStateToProps,mapDispatchToProps)(Step2);
-
+export default connect(mapStateToProps, mapDispatchToProps)(Step2);

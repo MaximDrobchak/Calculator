@@ -15,22 +15,21 @@ export const styles = theme => ({
     background: 'rgb(255,255,255)',
     opacity: 0.9,
     width: '100%',
-    maxWidth: 400
+    maxWidth: 400,
   },
 
   paperTitle: {
     height: 30,
     textAlign: 'center',
-    color: 'white',
-    display: 'flex'
+    color: 'purple',
+    display: 'flex',
   },
 
   title: {
-    color: '#ffffff',
+    color: 'purple',
     margin: 'auto',
-    fontSize: 18
+    fontSize: 18,
   },
-
 });
 
 function PaperSheet (props){
@@ -40,7 +39,9 @@ function PaperSheet (props){
     <div className={classes.paperContainer}>
       <Paper className={classes.root} elevation={1}>
         <Paper className={classes.paperTitle} style={{ background }}>
-          <Typography variant='title' className={classes.title} >{header}</Typography>
+          <Typography variant='title' className={classes.title}>
+            {header}
+          </Typography>
         </Paper>
         <br />
         <Typography variant='display1'>{children}</Typography>
@@ -53,21 +54,21 @@ PaperSheet.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
- const MyPaperHeader = props => {
-const { background, header, width, classes } = props;
+const MyPaperHeader = props => {
+  const { background, header, width, classes } = props;
   return (
-    <Paper className={classes.paperTitle} style={{ background }}>
-      <Typography variant='title' className={classes.title} >{header}</Typography>
+    <Paper className={classes.paperTitle}>
+      <Typography variant='title' className={classes.title}>
+        {header}
+      </Typography>
     </Paper>
-  )
-}
+  );
+};
 
 MyPaperHeader.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 const MyHEader = withStyles(styles)(MyPaperHeader);
 
-export {
-  MyHEader
-}
+export { MyHEader };
 export default withStyles(styles)(PaperSheet);
