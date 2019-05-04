@@ -27,6 +27,7 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit,
+    fontSize: props => props.lable && '3em',
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -176,7 +177,10 @@ class FormattedInputs extends React.PureComponent {
       <React.Fragment>
         <div className={classes.container}>
           <TextField
-            label={this.props.value && 'Диллерские'}
+            label={
+              this.props.value && <h1 style={{ fontSize: 15 }}>Диллерские</h1>
+            }
+            // helperText={this.props.value && <h1 style={{ fontSize: 15 }}>Диллерские</h1>}
             className={classes.formControl}
             value={
 

@@ -141,7 +141,7 @@ function Step2 ({
   onAddStepCost2({ costStep2: money.summ });
 
   return (
-    <Paper background='tomato' header='Расчет разтаможки'>
+    <Paper background='tomato' header='Расчет раcтаможки'>
       <Select header='Выберете тип топлива' {...fuelType} options={fuel_data} />
 
       <Select
@@ -167,21 +167,28 @@ function Step2 ({
       <hr />
       {costTamojnya > 0 &&
       cost > 0 && (
-        <Typography variant='title' color='primary' style={{ margin: 'auto' }}>
-          <span style={{ color: 'blue', fontSize: 20 }}>ПЛАТЕЖ В БЮДЖЕТ:</span>
-          <span
-            style={{
-              color: 'red',
-              fontSize: 25,
-              marginLeft: 20,
-            }}>
-            {money.summ}$
-          </span>
+        <Typography variant='title' color='primary' style={{ display: 'flex' }}>
+          <SummHeader title='ПЛАТЕЖ В БЮДЖЕТ:'>
+            {
+              <span
+                style={{
+                  color: 'red',
+                  fontSize: 25,
+                  marginLeft: 20,
+                }}>{`${money.summ} $`}</span>
+            }
+          </SummHeader>
         </Typography>
       )}
     </Paper>
   );
 }
+const SummHeader = ({ title, children }) => (
+  <h5 style={{ color: '#304ffe', margin: 'auto' }}>
+    {title}
+    {children}
+  </h5>
+);
 const mapStateToProps = state => ({
   stepState: state.step2State,
   cost: state.summaState.costCar,

@@ -49,7 +49,7 @@ function Main (props){
       <MDBContainer
         className={classes.root}
         style={{
-          display: 'flex',
+          display: 'flex-fill',
           flexDirection:
 
               width > 992 ? 'row' :

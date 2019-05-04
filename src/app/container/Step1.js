@@ -167,7 +167,7 @@ const mapDispatchToProps = dispatch => ({
   onAddStepCost1: payload => dispatch(doAddStepCost1(payload)),
 });
 const SummHeader = ({ title, children }) => (
-  <h5 style={{ color: '#304ffe' }}>
+  <h5 style={{ color: '#304ffe', margin: 0 }}>
     {title}
     {children}
   </h5>
