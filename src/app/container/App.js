@@ -10,7 +10,7 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import { styles } from './styles';
-
+import LayoutApp from '../components/App';
 const gridExamplesPage = () => {
   useEffect(() => {
     document.getElementById('forsage').play();
@@ -45,42 +45,85 @@ function Main (props){
   const width = setWindowWidth();
   return (
     <div className={classes.main}>
-      {/* <NavBar title='Расчет доставки авто'/> */}
-      <MDBContainer
-        className={classes.root}
-        style={{
-          display: 'flex-fill',
-          flexDirection:
-
-              width > 992 ? 'row' :
-              'column',
-        }}>
-        <div className={classes.step}>
-          <Step1 />
-        </div>
-
-        <div
-          className={classes.step}
+      {
+        width < 992 ? <MDBContainer
+          className={classes.root}
           style={{
-            marginTop:
+            display: 'flex',
+            flexDirection:
 
-                width < 992 ? '95vh' :
-                0,
+                width > 992 ? 'row' :
+                'column',
           }}>
-          <Step3 />
-        </div>
+          <div
+            className={classes.step}
+            style={{
+              position: width < 998 && 'relative',
+              marginTop: width < 998 && 5,
+              display: width < 998 && 'block',
+            }}>
+            <Step1 />
+          </div>
 
-        <div
-          className={classes.step}
+          <div
+            className={classes.step}
+            style={{
+              position: width < 998 && 'relative',
+              display: width < 998 && 'block',
+              marginTop: width < 998 && 5,
+            }}>
+            <Step2 />
+          </div>
+          <div
+            className={classes.step}
+            style={{
+              position: width < 998 && 'relative',
+              marginTop: width < 998 && 5,
+              display: width < 998 && 'block',
+              marginBottom: 15,
+            }}>
+            <Step3 />
+          </div>
+        </MDBContainer> :
+        <MDBContainer
+          className={classes.root}
           style={{
-            marginTop:
+            display: 'flex',
+            flexDirection:
 
-                width < 992 ? '93vh' :
-                0,
+                width > 992 ? 'row' :
+                'column',
           }}>
-          <Step2 />
-        </div>
-      </MDBContainer>
+          <div
+            className={classes.step}
+            style={{
+              position: width < 998 && 'relative',
+              marginTop: width < 998 && 5,
+              display: width < 998 && 'block',
+            }}>
+            <Step1 />
+          </div>
+
+          <div
+            className={classes.step}
+            style={{
+              position: width < 998 && 'relative',
+              marginTop: width < 998 && 5,
+              display: width < 998 && 'block',
+            }}>
+            <Step3 />
+          </div>
+
+          <div
+            className={classes.step}
+            style={{
+              position: width < 998 && 'relative',
+              display: width < 998 && 'block',
+              marginTop: width < 998 && 5,
+            }}>
+            <Step2 />
+          </div>
+        </MDBContainer>}
     </div>
   );
 }
@@ -103,3 +146,4 @@ function setWindowWidth (){
 }
 
 export default gridExamplesPage;
+// export default () => <LayoutApp Step1={Step1} Step2={Step2} Step3={Step3} />;

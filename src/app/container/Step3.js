@@ -18,8 +18,7 @@ function Step3 ({ costStep1, costStep2 }){
     <Paper
       background='tomato'
       style={{ maxWidth: 400, margin: 'auto' }}
-      header={`  Полная стоимость авто ${!isNaN(costStep2) &&
-        +costStep2 + +costStep1 + ' $'} `}>
+      header='ИТОГО'>
       <Typography variant='title' style={{ color: 'purple', marginTop: 5 }}>
         Платеж в бюджет{' '}
         <span style={{ color: 'red', fontSize: 20, marginLeft: 7 }}>
@@ -37,15 +36,14 @@ function Step3 ({ costStep1, costStep2 }){
       <div style={{ display: 'flex' }}>
         <Typography variant='title' color='primary' style={{ margin: 0 }}>
           {
-            <SummHeader title='ОБЩАЯ СТОИМОСТЬ :'>
+            <SummHeader title='ОБЩАЯ СТОИМОСТЬ:'>
               <span
                 style={{
                   color: 'red',
-                  fontSize: 25,
-
-                  margin: 0,
+                  fontSize: 28,
+                  marginLeft: 15,
                 }}>
-                {`  ${!isNaN(costStep2) && +costStep2 + +costStep1 + ' $'} `}
+                {`${!isNaN(costStep2) && +costStep2 + +costStep1 + '$'}`}
               </span>
             </SummHeader>
           }
@@ -55,7 +53,13 @@ function Step3 ({ costStep1, costStep2 }){
   );
 }
 const SummHeader = ({ title, children }) => (
-  <h6 style={{ color: '#304ffe', fontSize: 25, fontWeight: 'bold', margin: 0 }}>
+  <h6
+    style={{
+      color: '#304ffe',
+      fontSize: 18,
+      fontWeight: 'bold',
+      margin: 0,
+    }}>
     {title}
     {children}
   </h6>

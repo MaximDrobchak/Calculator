@@ -9,13 +9,13 @@ export const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    position: 'absolute',
+    margin: 0,
+    position: 'relative',
     display: 'block',
     zIndex: 10000,
     background: 'rgb(255,255,255)',
     opacity: 0.9,
     width: '100%',
-    maxWidth: 400,
   },
 
   paperTitle: {
@@ -26,7 +26,7 @@ export const styles = theme => ({
   },
 
   title: {
-    color: 'purple',
+    color: '#fff',
     margin: 'auto',
     fontSize: 18,
   },

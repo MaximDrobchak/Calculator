@@ -184,7 +184,7 @@ function Step2 ({
   );
 }
 const SummHeader = ({ title, children }) => (
-  <h5 style={{ color: '#304ffe', margin: 'auto' }}>
+  <h5 style={{ color: '#304ffe', margin: 'auto', fontWeight: 'bold' }}>
     {title}
     {children}
   </h5>
